@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Bolivia Treek</string>
     <string name="txt_NombreApp">BOLIVIA TREK</string>
+    <string name="txt_Title">EL CHORO</string>
+    <string name="txt_ubicacion">La Paz - Bolivia - Caminata</string>
+    <string name="txt_kilometraje">28.7 km</string>
+    <string name="txt_distancia">Distancia</string>
+    <string name="txt_modalidad">Facil</string>
+    <string name="txt_Dificultad">Dificultad</string>
+    <string name="txt_valoracion">5estrellas</string>
 </resources>
