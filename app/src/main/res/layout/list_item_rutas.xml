@@ -9,7 +9,7 @@
         android:id="@+id/imgv_fondo"
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        app:srcCompat="@mipmap/icontrek" />
+        app:srcCompat="@mipmap/icontrek" />♦
 
     <LinearLayout
         android:layout_width="match_parent"
