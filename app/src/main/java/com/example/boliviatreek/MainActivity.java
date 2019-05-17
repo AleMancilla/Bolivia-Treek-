@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         //***tab1
         th.setup(); //configuracion
         TabHost.TabSpec ts1 = th.newTabSpec("TabSpec1"); //se establece primero un tabspec relacionado con el tahost , el string es para identificarlo
-        ts1.setIndicator("texto 1");//texto que se mostrara
+        ts1.setIndicator("RUTAS");//texto que se mostrara
         ts1.setContent(R.id.tab1); // contenido
 
         th.addTab(ts1);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         //***tab2
         th.setup(); //configuracion
         TabHost.TabSpec ts2 = th.newTabSpec("TabSpec2"); //se establece primero un tabspec relacionado con el tahost , el string es para identificarlo
-        ts2.setIndicator("texto 2");//texto que se mostrara
+        ts2.setIndicator("PAQUETE TURISTICO");//texto que se mostrara
         ts2.setContent(R.id.tab2); // contenido
 
         th.addTab(ts2);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         //***tab3
         th.setup(); //configuracion
         TabHost.TabSpec ts3 = th.newTabSpec("TabSpec3"); //se establece primero un tabspec relacionado con el tahost , el string es para identificarlo
-        ts3.setIndicator("texto 3");//texto que se mostrara
+        ts3.setIndicator("AGREGA TU RUTA");//texto que se mostrara
         ts3.setContent(R.id.tab3); // contenido
 
         th.addTab(ts3);
