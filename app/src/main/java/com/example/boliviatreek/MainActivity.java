@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             Adaptador mProductAdapter = new Adaptador(MainActivity.this, (ArrayList<Product>) mProductList);
                             mProductAdapter.notifyDataSetChanged();
+                            Log.d("_________prueba________", "Document.toObject(Product.class): " + mProductAdapter);
                             lv1.setAdapter(mProductAdapter);
                         }
                     }
