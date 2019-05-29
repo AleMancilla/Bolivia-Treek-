@@ -1,5 +1,6 @@
 package com.example.boliviatreek;
 
+import android.app.Activity;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     //private TextView tv_title, tv_ubicacion, tv_kilometraje, tv_distancia, tv_modalidad, tv_dificultad, tv_valoracion, prueba;
@@ -28,67 +32,56 @@ public class MainActivity extends AppCompatActivity {
     private TabHost th;
 
     // para la base de datos
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    ////private int[] datos_img = {R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,};
 
 
-
-    private String[][] datos_txt2 = {{"uno","uno","uno","uno","uno","uno","uno"},
-            {"uno","uno","uno","uno","uno","uno","uno"},
-            {"dos","uno","dos","uno","uno","uno","uno"},
-            {"uno","uno","uno","uno","uno","uno","uno"},
-            {"uno","uno","uno","uno","uno","uno","uno"},
-            {"uno","uno","uno","uno","uno","uno","uno"},
-            {"uno","uno","uno","uno","uno","uno","uno"}} ;
-    //private String[][] datos_txt;
-    private int[] datos_img2 = {R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,};
-
-
-    private String ubicaciones [] = {"La Paz", "Oruro"};
-
-
-    public int contador = 0;
-
+    ////private String ubicaciones [] = {"La Paz", "Oruro"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //database
-        //int x = db.collection("Rutas")
+        ////////////////////////////////////////////
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        lv1 = findViewById(R.id.lv_listaRutas);
+
         db.collection("Rutas")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        //Log.d("*****prueba****", "Document.getData: " +task.getResult());
 
-                        if (task.isSuccessful()) {
-
+                        List<Product> mProductList = new ArrayList<>();
+                        if(task.isSuccessful())
+                        {
                             for (QueryDocumentSnapshot document : task.getResult())
                             {
 
-                                contador++;
+                                Log.d("*****prueba****", "Document.getData: " + document.getData());
 
-                                Log.d("***PRUEBA CONTADOR ***", document.getId() + " => " + document.getData());
+                                Product miss = document.toObject(Product.class);
+
+                                Log.d("*****prueba****", "Document.toObject(Product.class): " + miss.tostring());
+
+                                mProductList.add(miss);
                             }
-                            funcionAux(contador);
-
-                        } else {
-                            //Log.w("", "Error getting documents.", task.getException());
+                            Adaptador mProductAdapter = new Adaptador(MainActivity.this, (ArrayList<Product>) mProductList);
+                            mProductAdapter.notifyDataSetChanged();
+                            lv1.setAdapter(mProductAdapter);
                         }
                     }
                 });
-        //contador++;
-        //Toast.makeText(MainActivity.this, "CONTADOR = "+contador, Toast.LENGTH_SHORT).show();
 
-        //lv1 = (ListView) findViewById(R.id.lv_listaRutas);
-        //lv1.setAdapter(new Adaptador(this,this.datos_txt2,this.datos_img));
-        //th =(TabHost) findViewById(R.id.th_principal);
 
-        // ___________ inicia la configuracion de TABHOST____________//
+        ////////////////////////////////////////////////
+
+
+
 
         th =(TabHost) findViewById(R.id.th_principal);
 
-        lv1 = (ListView) findViewById(R.id.lv_listaRutas);
         //***tab1
         th.setup(); //configuracion
         TabHost.TabSpec ts1 = th.newTabSpec("TabSpec1"); //se establece primero un tabspec relacionado con el tahost , el string es para identificarlo
@@ -116,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void funcionAux (final int conti)
+   /* public void funcionAux (final int conti)
     {
 
         db.collection("Rutas")
@@ -144,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                                 i++;
 
                             }
-                            lv1.setAdapter(new Adaptador(getApplication(),datos_txt,this.datos_img));
+                            lv1.setAdapter(new Adaptador(MainActivity.class,datos_txt,this.datos_img));
                         } else {
                             //Log.w("", "Error getting documents.", task.getException()); document.getData()
                         }
@@ -153,4 +146,5 @@ public class MainActivity extends AppCompatActivity {
 
         //lv1.setAdapter(new Adaptador(getApplication(),datos_txt2,this.datos_img2));
     }
+    */
 }
