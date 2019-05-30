@@ -16,27 +16,23 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private TextView tv_title, tv_ubicacion, tv_kilometraje, tv_distancia, tv_modalidad, tv_dificultad, tv_valoracion, prueba;
     private ListView lv1;
     private TabHost th;
 
-    // para la base de datos
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    ////private int[] datos_img = {R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,};
-
-
-    ////private String ubicaciones [] = {"La Paz", "Oruro"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //Log.d("*****prueba****", "Document.getData: " +task.getResult());
 
                         List<Product> mProductList = new ArrayList<>();
                         if(task.isSuccessful())
@@ -110,42 +105,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-   /* public void funcionAux (final int conti)
-    {
-
-        db.collection("Rutas")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    private String[][] datos_txt = new String[conti][7];
-                    private int[] datos_img = {R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,R.mipmap.icontrek,};
-
-
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        if (task.isSuccessful()) {
-                            int i=0;
-
-                            for (QueryDocumentSnapshot document : task.getResult())
-                            {
-                                datos_txt[i][0] = document.getData().get("txt1").toString();
-                                datos_txt[i][1] = document.getData().get("txt2").toString();
-                                datos_txt[i][2] = document.getData().get("txt3").toString();
-                                datos_txt[i][3] = document.getData().get("txt4").toString();
-                                datos_txt[i][4] = document.getData().get("txt5").toString();
-                                datos_txt[i][5] = document.getData().get("txt6").toString();
-                                datos_txt[i][6] = document.getData().get("txt7").toString();
-                                i++;
-
-                            }
-                            lv1.setAdapter(new Adaptador(MainActivity.class,datos_txt,this.datos_img));
-                        } else {
-                            //Log.w("", "Error getting documents.", task.getException()); document.getData()
-                        }
-                    }
-                });
-
-        //lv1.setAdapter(new Adaptador(getApplication(),datos_txt2,this.datos_img2));
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.getInstance().signOut();
     }
-    */
 }

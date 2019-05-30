@@ -28,7 +28,7 @@ public class splash extends AppCompatActivity {
             @Override
             public void run() {
                 //cargar la pantalla de inicio
-                Intent intent = new Intent(splash.this, MainActivity.class);
+                Intent intent = new Intent(splash.this, RegistroDeUsuarios.class);
                 startActivity(intent);
                 finish();
             }
