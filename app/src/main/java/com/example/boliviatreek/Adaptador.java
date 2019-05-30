@@ -2,18 +2,19 @@ package com.example.boliviatreek;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class Adaptador extends ArrayAdapter<Product> {
 
-    //Context context;
+    Context context;
     ArrayList<Product> object;
 
 
@@ -40,9 +41,9 @@ public class Adaptador extends ArrayAdapter<Product> {
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         ////////// codigo para acomodar elementos de la list view
-        Log.d("*****prueba****", "entraaa 1"+i  );
+        //Log.d("*****prueba****", "entraaa 1"+i  );
         if(convertView == null){
-            Log.d("*****prueba****", "entraaa 2" );
+            //Log.d("*****prueba****", "entraaa 2" );
             convertView =  ((Activity)getContext()).getLayoutInflater().inflate(R.layout.list_item_rutas,parent,false);
         }
 
@@ -57,6 +58,7 @@ public class Adaptador extends ArrayAdapter<Product> {
             TextView modalidad = convertView.findViewById(R.id.tv_modalidad);
             TextView dificultad = convertView.findViewById(R.id.tv_dificultad);
             TextView valoracion = convertView.findViewById(R.id.tv_valoracion);
+            TextView NickNameUser = convertView.findViewById(R.id.tv_creadUser);
 
             ImageView imagen_logo = convertView.findViewById(R.id.imgv_logo);
             ImageView imagen_fondo = convertView.findViewById(R.id.imgv_fondo);
@@ -77,9 +79,18 @@ public class Adaptador extends ArrayAdapter<Product> {
             modalidad.setText(dir.getModalidad());
             dificultad.setText(dir.getDificultad());
             valoracion.setText(dir.getValoracion());
+            NickNameUser.setText(dir.getNicknameuser());
 
-            imagen_logo.setImageResource(R.mipmap.icontrek);
-            imagen_fondo.setImageResource(R.mipmap.icontrek);
+
+                Glide.with(context)
+                .load(dir.getIconUrl())
+                .fitCenter()
+                .into(imagen_logo);//.centerCrop()
+        Glide.with(context)
+                .load(dir.getBackgroundUrl())
+                .fitCenter()
+                .centerCrop()
+                .into(imagen_fondo);//.centerCrop()
 
 /*
         imagen.setTag(i);
@@ -112,6 +123,6 @@ public class Adaptador extends ArrayAdapter<Product> {
     public Adaptador(Context context, ArrayList<Product> object){
         super(context,0, object);
         this.object = object;
-
+        this.context=context;
     }
 }

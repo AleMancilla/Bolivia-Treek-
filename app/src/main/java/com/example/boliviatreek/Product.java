@@ -11,11 +11,14 @@ public class Product implements Serializable {
     public String modalidad= "";
     public String dificultad= "";
     public String valoracion= "";
+    public String backgroundUrl = "";
+    public String iconUrl = "";
+    public String nicknameuser = "";
 
     public Product() {
     }
 
-    public Product(String title, String ubicacion, String kilometraje, String distancia, String modalidad, String dificultad, String valoracion) {
+    public Product(String title, String ubicacion, String kilometraje, String distancia, String modalidad, String dificultad, String valoracion, String backgroundUrl, String iconUrl, String nicknameuser) {
         this.title = title;
         this.ubicacion = ubicacion;
         this.kilometraje = kilometraje;
@@ -23,6 +26,25 @@ public class Product implements Serializable {
         this.modalidad = modalidad;
         this.dificultad = dificultad;
         this.valoracion = valoracion;
+        this.backgroundUrl = backgroundUrl;
+        this.iconUrl = iconUrl;
+        this.nicknameuser = nicknameuser;
+    }
+
+    public String getBackgroundUrl() {
+        return backgroundUrl;
+    }
+
+    public void setBackgroundUrl(String backgroundUrl) {
+        this.backgroundUrl = backgroundUrl;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
     public String tostring()
@@ -34,6 +56,14 @@ public class Product implements Serializable {
         if(title!=null)
         {return title;}
         return "";
+    }
+
+    public String getNicknameuser() {
+        return nicknameuser;
+    }
+
+    public void setNicknameuser(String nicknameuser) {
+        this.nicknameuser = nicknameuser;
     }
 
     public void setTitle(String title) {
