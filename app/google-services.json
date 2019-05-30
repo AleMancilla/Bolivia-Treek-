@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "798601517836",
+    "firebase_url": "https://boliviatreek.firebaseio.com",
+    "project_id": "boliviatreek",
+    "storage_bucket": "boliviatreek.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798601517836:android:bbf4271c997fe417",
+        "android_client_info": {
+          "package_name": "com.example.boliviatreek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798601517836-glas5dm4vhfmt1r8oadpv8ab9k7olnek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.boliviatreek",
+            "certificate_hash": "20618cbd0d278a01890d59b2f6c73f45d58df938"
+          }
+        },
+        {
+          "client_id": "798601517836-u3s4k7k3rkf6por2muer6la8f499hv8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCFddjp5tkC5fXyyqNb1nHBFQmzdDk-1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "798601517836-u3s4k7k3rkf6por2muer6la8f499hv8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
