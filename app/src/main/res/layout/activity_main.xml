@@ -55,9 +55,10 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/button_cerrar_sesion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="cerrarSesion"
                         android:text="@string/txt_NombreApp" />
                 </LinearLayout>
 
@@ -67,11 +68,78 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/txt_ubicacion" />
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <EditText
+                                android:id="@+id/editText_titleRuta"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Nombre de la ruta"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/editText_ubicacion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="De que ciudad es esa ruta"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/editText_kilometraje"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="a que distancia esta esa ruta"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/editText_valoracion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="que valoracion le das a esa ruta"
+                                android:inputType="textPersonName" />
+
+                            <Button
+                                android:id="@+id/button_SubirImagen"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:onClick="subirImagenBackground"
+                                android:text="Cargar imagen de la ruta" />
+
+                            <Button
+                                android:id="@+id/button_registrarRuta"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:onClick="registrarRuta"
+                                android:text="Registrar Ruta" />
+
+                            <ImageView
+                                android:id="@+id/imageView_imgruta"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                            <EditText
+                                android:id="@+id/editText_url"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:inputType="textPersonName"
+                                android:text="Name" />
+
+                        </LinearLayout>
+                    </ScrollView>
+
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

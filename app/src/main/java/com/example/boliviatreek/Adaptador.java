@@ -63,14 +63,6 @@ public class Adaptador extends ArrayAdapter<Product> {
             ImageView imagen_logo = convertView.findViewById(R.id.imgv_logo);
             ImageView imagen_fondo = convertView.findViewById(R.id.imgv_fondo);
 
-            //title.setText(datos_txt[i][0]);
-            //ubicacion.setText(datos_txt[i][1]);
-            //kilometraje.setText(datos_txt[i][2]);
-            //distancia.setText(datos_txt[i][3]);
-            //modalidad.setText(datos_txt[i][4]);
-            //dificultad.setText(datos_txt[i][5]);
-            //valoracion.setText(datos_txt[i][6]);
-           // Log.d("_________prueba________", "Document.toObject(Product.class): " + dir.getTitle());
 
             title.setText(dir.getTitle());
             ubicacion.setText(dir.getUbicacion());
@@ -92,33 +84,11 @@ public class Adaptador extends ArrayAdapter<Product> {
                 .centerCrop()
                 .into(imagen_fondo);//.centerCrop()
 
-/*
-        imagen.setTag(i);
-
-        imagen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent visorImagen = new Intent(contexto, VisorImagen.class);
-                visorImagen.putExtra("IMG", datosImg[(Integer)v.getTag()]);
-                contexto.startActivity(visorImagen);
-            }
-        });
-
-*/
             return convertView;
             //// fin de codigo para acomodar la list view
 
     }
 
-
-    /*public Adaptador (Context contexto, String[][] datos_txt, int[]datos_img)
-    {
-        this.contexto = contexto;
-        this.datos_txt=datos_txt;
-        this.datos_img=datos_img;
-
-        inflater = (LayoutInflater) contexto.getSystemService(contexto.LAYOUT_INFLATER_SERVICE);
-    }*/
 
     public Adaptador(Context context, ArrayList<Product> object){
         super(context,0, object);
