@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +30,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -66,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv_url;
     private ProgressDialog progressDialog2;
 
+    private List<Product> mProductList;
+    private Adaptador adaptador;
+    private RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +94,45 @@ public class MainActivity extends AppCompatActivity {
         progressDialog2 = new ProgressDialog(this);
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
+        mProductList=new ArrayList<>();
+        adaptador = new Adaptador( this,mProductList);
+
+        recyclerView = findViewById(R.id.lv_listaRutas);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adaptador);
+
         ////////////////////////////////////////////
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        lv1 = findViewById(R.id.lv_listaRutas);
+        //lv1 = findViewById(R.id.lv_listaRutas);
         button_cerrar_sesion = findViewById(R.id.button_cerrar_sesion);
 
+
+
+        db.collection("Rutas").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(e != null)
+                {
+                    //error
+                }
+                for (DocumentChange doc: queryDocumentSnapshots.getDocumentChanges())
+                {
+                    if (doc.getType()== DocumentChange.Type.ADDED)
+                    {
+                        String id = doc.getDocument().getId();
+                        //Log.d("PRUEBA______", "onEvent: "+name);
+                        Product users = doc.getDocument().toObject(Product.class).whitId(doc.getDocument().getId());
+                        mProductList.add(users);
+                        Log.d("PRUEBA______", "onEvent: "+users.getNicknameuser());
+                        adaptador.notifyDataSetChanged();
+                    }
+
+
+                }
+            }
+        });
+        /*
         db.collection("Rutas")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -102,23 +145,32 @@ public class MainActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult())
                             {
 
-                                Log.d("*****prueba****", "Document.getData: " + document.getData());
+                                //Log.d("*****prueba****", "Document.getData: " + document.getData());
 
                                 Product miss = document.toObject(Product.class);
 
-                                Log.d("*****prueba****", "Document.toObject(Product.class): " + miss.tostring());
+                               // Log.d("*****prueba****", "Document.toObject(Product.class): " + miss.tostring());
 
                                 mProductList.add(miss);
+                                adaptador = new Adaptador(MainActivity.this,mProductList );
+                                recyclerView.setAdapter(adaptador);
+
+
+                                Log.d("VERIFICANDO________", "adaptador_________: " + adaptador.getClass().getName());
                             }
-                            Adaptador mProductAdapter = new Adaptador(MainActivity.this, (ArrayList<Product>) mProductList);
-                            mProductAdapter.notifyDataSetChanged();
-                            Log.d("_________prueba________", "Document.toObject(Product.class): " + mProductAdapter);
-                            lv1.setAdapter(mProductAdapter);
+
+
+                            adaptador.notifyDataSetChanged();
+
+                            //Adaptador mProductAdapter = new Adaptador(MainActivity.this, (ArrayList<Product>) mProductList);
+                            //mProductAdapter.notifyDataSetChanged();
+                            //Log.d("_________prueba________", "Document.toObject(Product.class): " + mProductAdapter);
+                            //lv1.setAdapter(mProductAdapter);
                         }
                     }
                 });
 
-
+        */
         ////////////////////////////////////////////////
 
 

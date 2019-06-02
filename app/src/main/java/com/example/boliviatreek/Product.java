@@ -2,7 +2,7 @@ package com.example.boliviatreek;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Product extends UserID {
 
     public String title = "";
     public String ubicacion= "";
