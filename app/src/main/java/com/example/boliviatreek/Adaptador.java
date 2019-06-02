@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -70,8 +71,13 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
                 .into(viewHolder.imagen_fondo);//.centerCrop()
 
 
-        //String user_id = userList.get(i).userID;
-
+        final String user_id = userList.get(i).userID;
+        viewHolder.convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "ID: "+user_id, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //return convertView;
 
