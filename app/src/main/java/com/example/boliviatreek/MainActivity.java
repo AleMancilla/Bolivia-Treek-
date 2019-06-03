@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
     private Adaptador adaptador;
     private RecyclerView recyclerView;
 
+    private Button button_activity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         //lv1 = findViewById(R.id.lv_listaRutas);
         button_cerrar_sesion = findViewById(R.id.button_cerrar_sesion);
+
+        button_activity = findViewById(R.id.button_activity);
 
 
 
@@ -359,6 +363,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void enterView(View v)
+    {
+        Intent intent = new Intent(this, MainActivity22.class);
+        startActivity(intent);
+    }
+
+
 }
 
 

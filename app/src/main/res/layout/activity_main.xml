@@ -60,6 +60,13 @@
                         android:layout_height="wrap_content"
                         android:onClick="cerrarSesion"
                         android:text="@string/txt_NombreApp" />
+
+                    <Button
+                        android:id="@+id/button_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="enterView"
+                        android:text="Activity" />
                 </LinearLayout>
 
                 <LinearLayout

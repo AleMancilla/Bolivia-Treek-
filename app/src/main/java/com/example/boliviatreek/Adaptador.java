@@ -2,6 +2,7 @@ package com.example.boliviatreek;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -76,6 +77,8 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "ID: "+user_id, Toast.LENGTH_SHORT).show();
+
+                enterView(user_id);
             }
         });
 
@@ -123,6 +126,12 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
 
         }
     }
+    public void enterView(String v)
+    {
+        Intent intent = new Intent(context, MainActivity22.class);
+        context.startActivity(intent);
+    }
+
 
     public String tostring()
     {
