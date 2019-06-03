@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
 
-        <ImageButton
-            android:id="@+id/imageButton"
+        <ImageView
+            android:id="@+id/imageView_PRINCIPAL"
             android:layout_width="match_parent"
             android:layout_height="200sp"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView_TITLE_PRINCIPAL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView"
@@ -44,7 +44,7 @@
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/textView_UBICACION_PRINCIPAL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView"
@@ -61,7 +61,7 @@
                 android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/textView_VALORACION_PRINCIPAL"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

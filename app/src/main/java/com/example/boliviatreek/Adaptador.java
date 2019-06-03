@@ -129,6 +129,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
     public void enterView(String v)
     {
         Intent intent = new Intent(context, MainActivity22.class);
+        intent.putExtra("ID",v);
         context.startActivity(intent);
     }
 

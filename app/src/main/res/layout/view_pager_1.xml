@@ -20,21 +20,23 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/button_albergues"
                     android:padding="5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="btn_albergues"
                     android:layout_margin="10sp"
 
-                    android:text="Button" />
+                    android:text="Albergues" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/button_recomendaciones"
                     android:layout_margin="10sp"
                     android:padding="5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:onClick="btn_recomendaciones"
+                    android:text="Recomendaciones" />
             </LinearLayout>
 
             <LinearLayout
@@ -44,20 +46,22 @@
                 android:layout_weight="0.5">
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/button_pueblos"
                     android:layout_margin="10sp"
                     android:padding="5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:onClick="btn_pueblos"
+                    android:text="Pueblos" />
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/button_servicios"
                     android:layout_margin="10sp"
                     android:padding="5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:onClick="btn_servicios"
+                    android:text="Servicios" />
             </LinearLayout>
         </LinearLayout>
 
