@@ -6,74 +6,86 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity22">
 
-    <FrameLayout
-
-        android:id="@+id/frameLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/imageView_PRINCIPAL"
-            android:layout_width="match_parent"
-            android:layout_height="200sp"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#800FAC05"
-            android:clipToPadding="false"
-            android:fadeScrollbars="false"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:weightSum="1">
+            <FrameLayout
 
-                <TextView
-                    android:id="@+id/textView_TITLE_PRINCIPAL"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textColor="#F8F7F7"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/textView_UBICACION_PRINCIPAL"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
+                android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints">
 
-                <TextView
-                    android:id="@+id/textView_VALORACION_PRINCIPAL"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/imageView_PRINCIPAL"
+                    android:layout_width="match_parent"
+                    android:layout_height="200sp"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    android:layout_gravity="bottom"
+                    android:background="#800FAC05"
+                    android:clipToPadding="false"
+                    android:fadeScrollbars="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:id="@+id/textView_TITLE_PRINCIPAL"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textColor="#F8F7F7"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/textView_UBICACION_PRINCIPAL"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:id="@+id/textView_VALORACION_PRINCIPAL"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="TextView"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
 
         </LinearLayout>
-
-    </FrameLayout>
+    </ScrollView>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/id_ViewPager"
