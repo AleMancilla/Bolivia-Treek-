@@ -24,8 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +42,6 @@ public class MainActivity22 extends AppCompatActivity {
     private TextView textView_TITLE_PRINCIPAL;
     private TextView textView_UBICACION_PRINCIPAL;
     private TextView textView_VALORACION_PRINCIPAL;
-
-    private EventBus bus= EventBus.getDefault();
 
 //    private TextView title_info;
 //    private TextView texto_title_info;
@@ -87,9 +83,9 @@ public class MainActivity22 extends AppCompatActivity {
 
 
         List<Fragment> list = new ArrayList<>();
-        list.add(new pageFragment1());
-        list.add(new pageFragment2());
-        list.add(new pageFragment3());
+        list.add(new pageFragment1(id_ruta));
+        list.add(new pageFragment2(id_ruta));
+        list.add(new pageFragment3(id_ruta));
 
         pager = findViewById(R.id.id_ViewPager);
         pagerAdapter = new SliderPageAdapter(getSupportFragmentManager(),list);
@@ -110,8 +106,6 @@ public class MainActivity22 extends AppCompatActivity {
 //        EM.recibirId(id_ruta);
 
         /////////
-
-        bus.post(new extra1(id_ruta));
 
 
         //Fragment1.t.setText("hola mundo");

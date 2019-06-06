@@ -1,5 +1,6 @@
 package com.example.boliviatreek.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,27 +14,22 @@ import android.widget.TextView;
 import com.example.boliviatreek.R;
 import com.example.boliviatreek.extra1;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 //import com.example.viewpagerdesde0.R;
 
-public class pageFragment1 extends Fragment  {
 
-    private TextView t=null;
-    String myid;
-    private EventBus bus = EventBus.getDefault();
+@SuppressLint("ValidFragment")
+public class pageFragment1 extends Fragment {
 
+    private TextView textView;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        Bundle bundle = this.getArguments();
-//        if (bundle != null) {
-//            myid = bundle.getString("id","PRUEBA ");
-//        }
+    private String id_ruta;
 
+    //@SuppressLint("ValidFragment")
+    public pageFragment1(String id_ruta) {
+        this.id_ruta=id_ruta;
     }
+
 
     @Nullable
     @Override
@@ -45,12 +41,9 @@ public class pageFragment1 extends Fragment  {
                 .inflate(R.layout.view_pager_1,container
                         ,false);
 
-         t=rootView.findViewById(R.id.textView_title_info);
 
-        bus.register(this);
-
-//
-//        t.setText(myid+" holo ");
+         textView = rootView.findViewById(R.id.textView_title_info);
+         textView.setText(id_ruta);
 
 
         return rootView;
@@ -58,11 +51,5 @@ public class pageFragment1 extends Fragment  {
         //
     }
 
-    @Subscribe
-    public void ejecutarLlamada(extra1 ext)
-    {
-
-        t.setText(myid+" holo "+ext.id);
-    }
 
 }
