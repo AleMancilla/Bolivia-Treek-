@@ -55,9 +55,9 @@ public class MainActivity22 extends AppCompatActivity {
         textView_VALORACION_PRINCIPAL=findViewById(R.id.textView_VALORACION_PRINCIPAL);
 
         List<Fragment> list = new ArrayList<>();
-        list.add(new pageFragment1());
-        list.add(new pageFragment2());
-        list.add(new pageFragment3());
+        list.add(new pageFragment1(id_ruta));
+        list.add(new pageFragment2(id_ruta));
+        list.add(new pageFragment3(id_ruta));
 
         pager = findViewById(R.id.id_ViewPager);
         pagerAdapter = new SliderPageAdapter(getSupportFragmentManager(),list);
