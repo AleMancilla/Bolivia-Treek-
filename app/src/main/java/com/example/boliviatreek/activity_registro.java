@@ -1,6 +1,7 @@
 package com.example.boliviatreek;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -190,7 +191,7 @@ public class activity_registro extends AppCompatActivity {
 
 
 
-                        agregaDatos( email, pass,  userdb,  nombre,  Apellidos,  genero,  fecha_cumpleaños,  fecha_registro_sistema,  nikcname);
+                        agregaDatos( nikcname,email, pass,  userdb,  nombre,  Apellidos,  genero,  fecha_cumpleaños,  fecha_registro_sistema,  nikcname);
 
                         ////////////
 
@@ -211,7 +212,7 @@ public class activity_registro extends AppCompatActivity {
 
     }
 
-    public void agregaDatos(final String email, final String pass, final Map<String, Object> userdb, final String nombre, final String Apellidos, final String genero, final String fecha_cumpleaños, final String fecha_registro_sistema, final String nikcname)
+    public void agregaDatos(final String nickname,final String email, final String pass, final Map<String, Object> userdb, final String nombre, final String Apellidos, final String genero, final String fecha_cumpleaños, final String fecha_registro_sistema, final String nikcname)
     {
         firebaseAuth.createUserWithEmailAndPassword(email,pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -232,6 +233,7 @@ public class activity_registro extends AppCompatActivity {
                             userdb.put("Genero", genero);
                             userdb.put("Cumpleaños", fecha_cumpleaños);
                             userdb.put("fecha registro", fecha_registro_sistema);
+                            userdb.put("nickname", nickname);
 
 
 
@@ -282,5 +284,9 @@ public class activity_registro extends AppCompatActivity {
                         progresDialog.dismiss();
                     }
                 });
+
+        //firebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, RegistroDeUsuarios.class);
+        startActivity(intent);
     }
 }
