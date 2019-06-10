@@ -1,5 +1,6 @@
 package com.example.boliviatreek;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -78,10 +79,10 @@ public class MainActivity22 extends AppCompatActivity {
 //       // como_llegar_info.setText("¿Cómo llegar?");
 //        texto_como_llegar_info=findViewById(R.id.textView_texto_como_llegar);
 
-
+        Context context = this;
 
         List<Fragment> list = new ArrayList<>();
-        list.add(new pageFragment1(id_ruta));
+        list.add(new pageFragment1(id_ruta,context));
         list.add(new pageFragment2(id_ruta));
         list.add(new pageFragment3(id_ruta));
 

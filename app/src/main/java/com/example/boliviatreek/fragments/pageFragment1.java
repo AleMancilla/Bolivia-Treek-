@@ -1,15 +1,22 @@
 package com.example.boliviatreek.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.boliviatreek.AdapterDatosComentarios;
+import com.example.boliviatreek.Comentario;
+import com.example.boliviatreek.MainActivity22;
 import com.example.boliviatreek.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 
 
 @SuppressLint("ValidFragment")
@@ -32,13 +40,19 @@ public class pageFragment1 extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();;
 
 
+    ArrayList<Comentario> listComentarios;
+    Context context;
+    RecyclerView recyclerView;
 
     private String id_ruta;
 
     //@SuppressLint("ValidFragment")
-    public pageFragment1(String id_ruta) {
+    public pageFragment1(String id_ruta, Context context) {
         this.id_ruta=id_ruta;
+        this.context=context;
     }
+
+
 
 
     @Nullable
@@ -46,10 +60,37 @@ public class pageFragment1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-
          ViewGroup rootView = (ViewGroup)inflater
                 .inflate(R.layout.view_pager_1,container
                         ,false);
+
+        listComentarios = new ArrayList<>();
+        recyclerView = rootView.findViewById(R.id.ReciclerComentarios);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+
+        Time fecha_registro = new Time(Time.getCurrentTimezone());
+        fecha_registro.setToNow();
+        int idia = fecha_registro.monthDay;
+        int imes= fecha_registro.month+1;
+        int iyear = fecha_registro.year;
+
+        String fecha_registro_sistema= idia + "/" + imes + "/" + iyear;
+        llenarComentarios(fecha_registro_sistema);
+
+        AdapterDatosComentarios adapter = new AdapterDatosComentarios(listComentarios);
+        recyclerView.setAdapter(adapter);
+//
+//        recyclerView = rootView.findViewById(R.id.ReciclerComentarios);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+//        listComentarios = new ArrayList<String>();
+//        for (int i = 0; i < 10; i++) {
+//            listComentarios.add("Dato = "+i);
+//        }
+//        AdapterDatosComentarios adapter = new AdapterDatosComentarios(listComentarios);
+//        recyclerView.setAdapter(adapter);
+//
+
 
 
         textView_title_info = rootView.findViewById(R.id.textView_title_info);
@@ -102,6 +143,19 @@ public class pageFragment1 extends Fragment {
         return rootView;
         //return super.onCreateView(inflater, container, savedInstanceState);
         //
+    }
+
+    private void llenarComentarios(String fecha_registro_sistema) {
+        String url_perfil="url",
+                nickname = "nickname",  comentario="comentario bla bla bla",  fecha_registro;
+
+
+        listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
+        listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
+        listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
+        listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
+
+
     }
 
 
