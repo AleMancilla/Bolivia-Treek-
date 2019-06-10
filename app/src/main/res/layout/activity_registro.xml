@@ -9,7 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="15sp"
+        android:padding="5sp"
+        android:gravity="center"
+
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrate" />
 
         <EditText
             android:id="@+id/editText_name_registro"
@@ -42,6 +52,79 @@
             android:ems="10"
             android:hint="Contraseña"
             android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cumpleaños" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner_dias"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/spinner_mes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+
+            <Spinner
+                android:id="@+id/spinner_año"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Genero" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:padding="5sp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton_hombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hombre" />
+
+            <RadioButton
+                android:id="@+id/radioButton_mujer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mujer" />
+
+            <RadioButton
+                android:id="@+id/radioButton_otro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Otro" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/editText_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="NickName User (Unico)"
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/button_registroRegistro"
