@@ -82,42 +82,57 @@
                 android:id="@+id/textView_title_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
-                android:text="TextView" />
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="20sp"
+                android:text="TextView"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/textView_descripcion_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/textView_mitos_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:textSize="15dp"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="20sp"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/textView_texto_mitos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/textView_como_llegar_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:textSize="15dp"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="20sp"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/textView_texto_como_llegar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
                 android:text="TextView" />
 
             <LinearLayout
@@ -130,6 +145,8 @@
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:text="Deja tu Comentario:" />
 
                 <EditText

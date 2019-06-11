@@ -25,7 +25,7 @@
                 <ImageView
                     android:id="@+id/imageView_PRINCIPAL"
                     android:layout_width="match_parent"
-                    android:layout_height="200sp"
+                    android:layout_height="175dp"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <LinearLayout
@@ -36,6 +36,8 @@
                     android:clipToPadding="false"
                     android:fadeScrollbars="false"
                     android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:weightSum="2">
 
                     <LinearLayout
@@ -50,7 +52,7 @@
                             android:layout_height="wrap_content"
                             android:text="TextView"
                             android:textColor="#F8F7F7"
-                            android:textSize="24sp" />
+                            android:textSize="24dp" />
 
                         <TextView
                             android:id="@+id/textView_UBICACION_PRINCIPAL"
@@ -58,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:text="TextView"
                             android:textColor="#FFFFFF"
-                            android:textSize="18sp" />
+                            android:textSize="18dp" />
 
                     </LinearLayout>
 
@@ -77,7 +79,7 @@
                             android:gravity="right"
                             android:text="TextView"
                             android:textColor="#FFFFFF"
-                            android:textSize="18sp" />
+                            android:textSize="18dp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -91,7 +93,7 @@
         android:id="@+id/id_ViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="200sp"
+        android:paddingTop="175dp"
         tools:layout_editor_absoluteY="200dp">
 
         <android.support.v4.view.PagerTitleStrip
