@@ -18,8 +18,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.boliviatreek.Adaptador;
 import com.example.boliviatreek.AdapterDatosComentarios;
 import com.example.boliviatreek.Comentario;
+import com.example.boliviatreek.Product;
 import com.example.boliviatreek.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,13 +29,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -46,14 +52,20 @@ public class pageFragment1 extends Fragment {
     private TextView textView_texto_mitos;
     private TextView textView_como_llegar_info;
     private TextView textView_texto_como_llegar;
+    private TextView textView_extra_nickname;
 
     private EditText editText_deja_comentarios;
     private Button button_comentar;
     private FirebaseAuth mAuth;
 
-    private   String fecha_registro_sistema;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();;
+    private   String fecha_registro_sistema;
+    //final String url_perfil;
+
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
 
 
     ArrayList<Comentario> listComentarios;
@@ -83,6 +95,8 @@ public class pageFragment1 extends Fragment {
         listComentarios = new ArrayList<>();
         recyclerView = rootView.findViewById(R.id.ReciclerComentarios);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -117,6 +131,7 @@ public class pageFragment1 extends Fragment {
         textView_texto_mitos = rootView.findViewById(R.id.textView_texto_mitos);
         textView_como_llegar_info = rootView.findViewById(R.id.textView_como_llegar_info);
         textView_texto_como_llegar = rootView.findViewById(R.id.textView_texto_como_llegar);
+        textView_extra_nickname = rootView.findViewById(R.id.textView_extra_nickname);
 
         editText_deja_comentarios = rootView.findViewById(R.id.editText_deja_comentario);
         button_comentar = rootView.findViewById(R.id.button_comentar);
@@ -166,6 +181,8 @@ public class pageFragment1 extends Fragment {
             }
         });
 
+
+
         return rootView;
         //return super.onCreateView(inflater, container, savedInstanceState);
         //
@@ -173,7 +190,9 @@ public class pageFragment1 extends Fragment {
 
     private void llenarComentarios(String fecha_registro_sistema) {
         String url_perfil="url",
-                nickname = "nickname",  comentario="comentario bla bla bla",  fecha_registro;
+                nickname = "nickname",  comentario="comentario bla bla bla";
+
+
 
 
         listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
@@ -202,9 +221,14 @@ public class pageFragment1 extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d(TAG, document.getId() + " => " + document.getData());
                                 nickname[0] = document.getData().get("nickname").toString();
+
+                                textView_extra_nickname.setText(nickname[0]);
                                 Toast.makeText(context, "Se agrego el comentario correctamente " , Toast.LENGTH_SHORT).show();
                                 comentarioenbd(nickname,comentario_caja);
                                 editText_deja_comentarios.setText("");
+
+
+                                //listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
                             }
                         } else {
 //                            Log.w(TAG, "Error getting documents.", task.getException());
@@ -215,14 +239,17 @@ public class pageFragment1 extends Fragment {
 
 
     }
-    public void comentarioenbd(String[] nickname, String comentario_caja)
+    public void comentarioenbd(final String[] nickname, final String comentario_caja)
     {
         // Create a new user with a first, middle, and last name
-        Map<String, Object> comentario = new HashMap<>();
+        final Map<String, Object> comentario = new HashMap<>();
         comentario.put("nickname", nickname[0]);
         comentario.put("Fecha de comentario",    fecha_registro_sistema);
         comentario.put("Comentario", comentario_caja);
-//        comentario.put("born", 1912);
+        comentario.put("ID RUTA",id_ruta);
+        comentario.put("ID COMENTARIO","______");
+
+        //        comentario.put("born", 1912);
 
 // Add a new document with a generated ID
         db.collection("Comentarios")
@@ -230,7 +257,10 @@ public class pageFragment1 extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+
+                        //listComentarios.add(new Comentario( textView_extra_nickname.getText().toString(),  nickname[0],  comentario_caja,  fecha_registro_sistema));
 //                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        ActualizarDatos(documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -240,6 +270,16 @@ public class pageFragment1 extends Fragment {
                     }
                 });
     }
+
+    private void ActualizarDatos( String id)
+    {
+        db.collection("Comentarios").document(id)
+                .update(
+                        "ID COMENTARIO", id
+                );
+    }
+
+
 
 
 }

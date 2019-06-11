@@ -1,5 +1,6 @@
 package com.example.boliviatreek;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,8 +14,9 @@ import java.util.ArrayList;
 public class AdapterDatosComentarios extends RecyclerView.Adapter<AdapterDatosComentarios.ViewHolderComentarios> {
 
     ArrayList<Comentario> listComentario;
+    Context context;
 
-    public AdapterDatosComentarios(ArrayList<Comentario> listComentario) {
+    public AdapterDatosComentarios( ArrayList<Comentario> listComentario) {
         this.listComentario = listComentario;
     }
 

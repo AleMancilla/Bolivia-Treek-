@@ -59,9 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private EditText edt_titleRuta;
-    private EditText edt_kilometraje;
-    private EditText edt_ubicacion;
-    private EditText edt_valoracion;
+//    private EditText edt_kilometraje;
+//    private EditText edt_ubicacion;
+//    private EditText edt_valoracion;
+    private EditText editText_info_lugar;
+    private EditText editText_como_llegar;
+    private EditText editText_mitos;
+
+
     private Button btn_SubirImagen;
     private Button btn_registrarRuta;
     private ImageView imgv_imagenRuta;
@@ -78,16 +83,19 @@ public class MainActivity extends AppCompatActivity {
     private Button button_activity;
 
 
+    final String[] data = new String[1];
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         db=FirebaseFirestore.getInstance();
-        edt_kilometraje=findViewById(R.id.editText_kilometraje);
+        editText_info_lugar=findViewById(R.id.editText_info_lugar);
         edt_titleRuta=findViewById(R.id.editText_titleRuta);
-        edt_ubicacion=findViewById(R.id.editText_ubicacion);
-        edt_valoracion=findViewById(R.id.editText_valoracion);
+        editText_como_llegar=findViewById(R.id.editText_Como_llegar);
+        editText_mitos=findViewById(R.id.editText_mitos_Agregar_ruta);
         btn_SubirImagen = findViewById(R.id.button_SubirImagen);
         btn_registrarRuta=findViewById(R.id.button_registrarRuta);
         imgv_imagenRuta = findViewById(R.id.imageView_imgruta);
@@ -315,11 +323,16 @@ public class MainActivity extends AppCompatActivity {
     public void registrarRuta(View v)
     {
         // el trim es para eliminar espacios que tengamos al principio y al final
-        final String title = edt_titleRuta.getText().toString().trim();
-        final String ubicacion = edt_ubicacion.getText().toString().trim();
-        final String valoracion = edt_valoracion.getText().toString();
-        final String kilometraje = edt_kilometraje.getText().toString();
+        final String title = edt_titleRuta.getText().toString().trim(); //titulo
+        final String ubicacion = "La Paz";//edt_ubicacion.getText().toString().trim(); // ciudad
+        final String valoracion = "192";//edt_valoracion.getText().toString();////
+        final String kilometraje = "125Km";//edt_kilometraje.getText().toString();////
         final String urlbackground = tv_url.getText().toString();
+        final String infoLugar = editText_info_lugar.getText().toString();
+        final String como_llegar = editText_como_llegar.getText().toString();
+        final String mitos =editText_mitos.getText().toString();
+        String dificultad = "Dificil";
+
 
         // para la base de datos
         final Map<String, Object> userdb = new HashMap<>();
@@ -336,9 +349,23 @@ public class MainActivity extends AppCompatActivity {
         userdb.put("dificultad","dificultad");
         userdb.put("distancia","distancia");
         userdb.put("iconUrl","https://firebasestorage.googleapis.com/v0/b/boliviatreek.appspot.com/o/BoliviaTrekRutas%2Fdescarga.png?alt=media&token=3ddde83a-f787-4c7a-bdef-9c09326ee6c1");
-        userdb.put("modalidad","Modo Fuerte");
-        userdb.put("nicknameuser", user.getEmail());
-        Log.d(" MENSAJE _____*_", "user.getEmail() "+user.getEmail());
+        userdb.put("modalidad",dificultad);
+
+        //sacarNickName(user.getEmail());
+
+
+        //userdb.put("nicknameuser","_____");
+        userdb.put("Email",user.getEmail());
+        userdb.put("Email id",user.getUid());
+
+
+
+        userdb.put("info", infoLugar);
+        userdb.put("como llegar", como_llegar);
+        userdb.put("mitos", mitos);
+        //userdb.put("id","___________");
+
+        Log.d(" MENSAJE _____*_", "user.getEmail() ");
 
 
 
@@ -348,8 +375,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(MainActivity.this, "Datos agregados correctamente a la base de datos", Toast.LENGTH_SHORT).show();
-                        Log.d(" MENSAJE ____error_", "entro ");
-
+                        Log.d(" MENSAJE ____error_", "entro con un ID documentReference="+documentReference.getId());
+                        ActualizarDatos(documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -362,6 +389,40 @@ public class MainActivity extends AppCompatActivity {
         //
 
 
+    }
+
+    private void ActualizarDatos(final String id) {
+
+
+        db.collection("Usuarios").whereEqualTo("Email" , user.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                String nickname = document.getData().get("nickname").toString();
+                                Log.d("______nickname ______","______nickname _________"+nickname);
+
+                                ActualizarDatos2(nickname,id);
+
+                            }
+                        } else {
+                            data[0]="no hay nickname";
+//                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+
+                    }
+                });
+    }
+    private void ActualizarDatos2(String nickname, String id)
+    {
+        db.collection("Rutas").document(id)
+                .update(
+                        "ID RUTAS", id,
+                        "nicknameuser", nickname
+                );
     }
 
     public void enterView(View v)

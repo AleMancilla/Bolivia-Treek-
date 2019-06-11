@@ -13,7 +13,7 @@ public class Product extends UserID {
     public String valoracion= "";
     public String backgroundUrl = "";
     public String iconUrl = "";
-    public String nicknameuser = "";
+    public String nicknameuser = "a";
 
     public Product() {
     }

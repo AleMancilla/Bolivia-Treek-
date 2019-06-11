@@ -2,20 +2,25 @@ package com.example.boliviatreek;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,7 +32,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +53,12 @@ public class activity_registro extends AppCompatActivity {
     private RadioButton radioButton_mujer;
     private RadioButton radioButton_otro;
 
+    private Button button_cargar_perfil;
+    private ImageView imageView_perfil_registro;
+    private static final int GALLERY_INTENT = 1;
+    private StorageReference mStorageRef;
+    private TextView textView;
+
 
     private EditText editText_nickname;
    // private Time fecha_registro;
@@ -57,6 +70,8 @@ public class activity_registro extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+//    public  void activity_registro(){}
 
 
     @Override
@@ -82,6 +97,15 @@ public class activity_registro extends AppCompatActivity {
         radioButton_mujer= findViewById(R.id.radioButton_mujer);
         radioButton_otro= findViewById(R.id.radioButton_otro);
 
+        button_cargar_perfil=findViewById(R.id.button_cargar_perfil);
+        imageView_perfil_registro = findViewById(R.id.imageView_photo_perfil);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        textView = findViewById(R.id.textView5);
+
+//        Glide.with(activity_registro.this)
+//                .load("https://upload.wikimedia.org/wikipedia/commons/2/27/Illimani_La_Paz.jpg")
+//                .into(imageView_perfil_registro);
+
 
         ArrayAdapter<CharSequence> adapter_dias = ArrayAdapter.createFromResource(this,R.array.Dias,R.layout.support_simple_spinner_dropdown_item);
         spinner_dias.setAdapter(adapter_dias);
@@ -93,6 +117,7 @@ public class activity_registro extends AppCompatActivity {
 
     public void registrarUsuario(View v)
     {
+
 
 
         // el trim es para eliminar espacios que tengamos al principio y al final
@@ -191,6 +216,7 @@ public class activity_registro extends AppCompatActivity {
 
 
 
+                        Log.d("______", "__________________Esta ENTRANDOo ______________________");
                         agregaDatos( nikcname,email, pass,  userdb,  nombre,  Apellidos,  genero,  fecha_cumpleaños,  fecha_registro_sistema,  nikcname);
 
                         ////////////
@@ -214,16 +240,30 @@ public class activity_registro extends AppCompatActivity {
 
     public void agregaDatos(final String nickname,final String email, final String pass, final Map<String, Object> userdb, final String nombre, final String Apellidos, final String genero, final String fecha_cumpleaños, final String fecha_registro_sistema, final String nikcname)
     {
+
+        Log.d("______", "__________________Entro ______________________"+ nickname);
         firebaseAuth.createUserWithEmailAndPassword(email,pass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(activity_registro.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
                             Toast.makeText(activity_registro.this, "Se registro el usuario Correctamente...", Toast.LENGTH_SHORT).show();
 
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
                             FirebaseUser user = firebaseAuth.getCurrentUser();
 
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
                             // para la base de datos
                             userdb.put("Nombre",nombre);
                             userdb.put("Apellidos", Apellidos);
@@ -234,15 +274,18 @@ public class activity_registro extends AppCompatActivity {
                             userdb.put("Cumpleaños", fecha_cumpleaños);
                             userdb.put("fecha registro", fecha_registro_sistema);
                             userdb.put("nickname", nickname);
+                            userdb.put("url_perfil",textView.getText());
 
 
 
 
+                            Log.d("______", "__________________Entro ______________________"+ nickname);
                             db.collection("Usuarios").document(nikcname)
                                     .set(userdb)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            Log.d("______", "__________________Entro __________xxxxxxx____________"+ nickname);
 
                                             Toast.makeText(activity_registro.this, "Datos agregados correctamente a la base de datos", Toast.LENGTH_SHORT).show();
                                         }
@@ -250,6 +293,8 @@ public class activity_registro extends AppCompatActivity {
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
+
+                                            Log.d("______", "__________________Entro ____________yyyyyyyyyy__________"+ nickname);
 
                                             Toast.makeText(activity_registro.this, "Datos NO agregados correctamente a la base de datos", Toast.LENGTH_SHORT).show();
                                         }
@@ -282,11 +327,118 @@ public class activity_registro extends AppCompatActivity {
 
                         }
                         progresDialog.dismiss();
+//                      firebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(getApplication(), RegistroDeUsuarios.class);
+                        startActivity(intent);
                     }
-                });
+
+                }
+
+                );
 
         //firebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(this, RegistroDeUsuarios.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, RegistroDeUsuarios.class);
+//        startActivity(intent);
+    }
+
+    public void subirFotoPerfil(View v)
+    {
+//        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        intent.setType("image/*");
+//        startActivityForResult(intent.createChooser(intent,"Seleccione una aplicacion"),10);
+            Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");
+                startActivityForResult(intent,GALLERY_INTENT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        if(resultCode==RESULT_OK)
+//        {
+//            Uri path = data.getData();
+//            //imageView_perfil_registro.setImageURI(path);
+//        }
+
+        //para no crashear si toma foto o selecciona imagen
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK && data != null && data.getData() != null)
+        {   //de parte de firebases
+            Uri uri = data.getData();
+            //Glide.with(MainActivity.this)
+            //        .load(uri)
+            //        .fitCenter()
+            //        .centerCrop().into(imgv_imagenRuta);
+            //tv_url.setText(uri.toString());
+//            progressDialog.dismiss();
+
+            ////String[] projection = {MediaStore.Images.Media.DATA};
+
+            ////Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+            ////cursor.moveToFirst();
+
+            ////int columnIndex = cursor.getColumnIndex(projection[0]);
+            ////String path = cursor.getString(columnIndex);
+            ////Log.d("___PRUEBA__", "hallando ryta __________________________***"+path);
+            ////cursor.close();
+
+
+            final StorageReference filepath = mStorageRef.child("fotos comentarios").child(uri.getLastPathSegment());
+
+            Log.d("___PRUEBA__", "_______**___*____"+uri.getLastPathSegment());
+
+            //Glide.with(MainActivity.this)
+            //      .load(uri)
+            //    .fitCenter()
+            //  .centerCrop().into(imgv_imagenRuta);
+            //tv_url.setText(uri.toString());
+
+            ////uri = Uri.fromFile(new File(path));
+            ////StorageReference riversRef = mStorageRef.child("fotos");
+
+            filepath.putFile(uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(activity_registro.this, "Se subio exitosa la foto", Toast.LENGTH_SHORT).show();
+                            //progressDialog.dismiss();
+
+
+                            //para sacar la url de la imagen cargada
+                            Task<Uri> task = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String photoLink = uri.toString();
+                                    Log.d("ESTE __________MENSAJE ", "URL__________: "+photoLink);
+
+                                    //codigo extra editar list view
+//                                    cambiarImagen(photoLink);
+
+                                    textView.setText(photoLink);
+                                    //codigo extra
+
+                                }
+                            });
+                            //fin de codigo que saca url
+
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(activity_registro.this, "ERROR AL SUBIR", Toast.LENGTH_SHORT).show();
+                    Log.d("___PRUEBA__", "__________*____ ERROR AL SUBIR");
+
+                }
+            });
+
+        }
+    }
+    public void cambiarImagen(String photoLink)
+    {
+        Glide.with(this)
+                .load("https://upload.wikimedia.org/wikipedia/commons/2/27/Illimani_La_Paz.jpg")
+                .fitCenter()
+                .centerCrop().into(imageView_perfil_registro);
     }
 }

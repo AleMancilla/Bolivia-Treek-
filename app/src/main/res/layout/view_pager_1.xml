@@ -150,12 +150,19 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/ReciclerComentarios"
-                android:layout_margin="10dp"
-                android:padding="5sp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:padding="5sp">
 
             </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView_extra_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
         </LinearLayout>
     </ScrollView>
 

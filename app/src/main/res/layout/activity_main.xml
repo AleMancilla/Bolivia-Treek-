@@ -101,19 +101,26 @@
                                 android:inputType="textPersonName" />
 
                             <EditText
-                                android:id="@+id/editText_kilometraje"
+                                android:id="@+id/editText_info_lugar"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
-                                android:hint="a que distancia esta esa ruta"
+                                android:hint="Coloque aqui toda la informacion que tenga hacerca del lugar"
                                 android:inputType="textPersonName" />
 
                             <EditText
-                                android:id="@+id/editText_valoracion"
+                                android:id="@+id/editText_Como_llegar"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
-                                android:hint="que valoracion le das a esa ruta"
+                                android:hint="Indique como llegar a esta ruta"
+                                android:inputType="textPersonName" />
+                            <EditText
+                                android:id="@+id/editText_mitos_Agregar_ruta"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Si conoce algun mito o leyenda de este lugar no dude en compartirlo"
                                 android:inputType="textPersonName" />
 
                             <Button
