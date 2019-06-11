@@ -188,7 +188,9 @@ public class pageFragment1 extends Fragment {
 
         /////////////////////////////////////////////
 
-        db.collection("Comentarios").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Comentarios")
+                .whereEqualTo("ID_RUTA",id_ruta)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if(e != null)
@@ -237,6 +239,8 @@ public class pageFragment1 extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+
+
 //                                Log.d(TAG, document.getId() + " => " + document.getData());
                                 nickname[0] = document.getData().get("nickname").toString();
 
@@ -295,7 +299,7 @@ public class pageFragment1 extends Fragment {
     {
         db.collection("Comentarios").document(id)
                 .update(
-                        "ID COMENTARIO", id
+                        "ID_COMENTARIO", id
                 );
     }
 
