@@ -1,8 +1,11 @@
 package com.example.boliviatreek;
 
+import android.content.Context;
 import android.text.format.Time;
 
-public class Comentario {
+import java.util.List;
+
+public class Comentario extends ComentarioID{
 
     private String url_perfil;
     private String nickname;
@@ -20,6 +23,15 @@ public class Comentario {
         this.nickname = nickname;
         this.comentario = comentario;
         this.fecha_registro=fecha_registro;
+    }
+
+
+    public String getFecha_registro() {
+        return fecha_registro;
+    }
+
+    public void setFecha_registro(String fecha_registro) {
+        this.fecha_registro = fecha_registro;
     }
 
     public String getUrl_perfil() {

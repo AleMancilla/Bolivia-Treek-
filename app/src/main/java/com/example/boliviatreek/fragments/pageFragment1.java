@@ -68,9 +68,10 @@ public class pageFragment1 extends Fragment {
 
 
 
-    ArrayList<Comentario> listComentarios;
+    private List<Comentario> listComentarios;
     Context context;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private AdapterDatosComentarios adaptor;
 
     private String id_ruta;
 
@@ -93,8 +94,9 @@ public class pageFragment1 extends Fragment {
                         ,false);
 
         listComentarios = new ArrayList<>();
-        recyclerView = rootView.findViewById(R.id.ReciclerComentarios);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        adaptor=new AdapterDatosComentarios(context,listComentarios);
+
+
 
 
 
@@ -107,10 +109,12 @@ public class pageFragment1 extends Fragment {
         int iyear = fecha_registro.year;
 
         fecha_registro_sistema= idia + "/" + imes + "/" + iyear;
-        llenarComentarios(fecha_registro_sistema);
+        //llenarComentarios(fecha_registro_sistema);
 
-        AdapterDatosComentarios adapter = new AdapterDatosComentarios(listComentarios);
-        recyclerView.setAdapter(adapter);
+        recyclerView = rootView.findViewById(R.id.ReciclerComentarios);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(adaptor);
 //
 //        recyclerView = rootView.findViewById(R.id.ReciclerComentarios);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
@@ -182,26 +186,40 @@ public class pageFragment1 extends Fragment {
         });
 
 
+        /////////////////////////////////////////////
+
+        db.collection("Comentarios").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(e != null)
+                {
+                    //error
+                }
+                for (DocumentChange doc: queryDocumentSnapshots.getDocumentChanges())
+                {
+                    if (doc.getType()== DocumentChange.Type.ADDED)
+                    {
+                        String id = doc.getDocument().getId();
+                        //Log.d("PRUEBA______", "onEvent: "+name);
+                        Comentario users = doc.getDocument().toObject(Comentario.class).whitId(doc.getDocument().getId());
+                        listComentarios.add(users);
+//                        Log.d("PRUEBA______", "onEvent: "+users.getNicknameuser());
+                        adaptor.notifyDataSetChanged();
+                    }
+
+
+                }
+            }
+        });
+
+        /////////////////////////////////////////////
 
         return rootView;
         //return super.onCreateView(inflater, container, savedInstanceState);
         //
     }
 
-    private void llenarComentarios(String fecha_registro_sistema) {
-        String url_perfil="url",
-                nickname = "nickname",  comentario="comentario bla bla bla";
 
-
-
-
-        listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
-        listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
-        listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
-        listComentarios.add(new Comentario( url_perfil,  nickname,  comentario,  fecha_registro_sistema));
-
-
-    }
 
     public void comentar (View v)
     {
@@ -224,7 +242,8 @@ public class pageFragment1 extends Fragment {
 
                                 textView_extra_nickname.setText(nickname[0]);
                                 Toast.makeText(context, "Se agrego el comentario correctamente " , Toast.LENGTH_SHORT).show();
-                                comentarioenbd(nickname,comentario_caja);
+                                String url_perfil=document.getData().get("url_perfil").toString();
+                                comentarioenbd(nickname,comentario_caja,url_perfil);
                                 editText_deja_comentarios.setText("");
 
 
@@ -239,15 +258,16 @@ public class pageFragment1 extends Fragment {
 
 
     }
-    public void comentarioenbd(final String[] nickname, final String comentario_caja)
+    public void comentarioenbd(final String[] nickname, final String comentario_caja,String url_perfil)
     {
         // Create a new user with a first, middle, and last name
         final Map<String, Object> comentario = new HashMap<>();
         comentario.put("nickname", nickname[0]);
-        comentario.put("Fecha de comentario",    fecha_registro_sistema);
-        comentario.put("Comentario", comentario_caja);
-        comentario.put("ID RUTA",id_ruta);
-        comentario.put("ID COMENTARIO","______");
+        comentario.put("fecha_registro",    fecha_registro_sistema);
+        comentario.put("comentario", comentario_caja);
+        comentario.put("ID_RUTA",id_ruta);
+        comentario.put("ID_COMENTARIO","______");
+        comentario.put("url_perfil",url_perfil);
 
         //        comentario.put("born", 1912);
 

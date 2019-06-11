@@ -3,21 +3,27 @@ package com.example.boliviatreek;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterDatosComentarios extends RecyclerView.Adapter<AdapterDatosComentarios.ViewHolderComentarios> {
 
-    ArrayList<Comentario> listComentario;
-    Context context;
+    public List<Comentario> listComentario;
+    public Context context;
+    public int ii;
 
-    public AdapterDatosComentarios( ArrayList<Comentario> listComentario) {
+    public AdapterDatosComentarios( Context context,List<Comentario> listComentario) {
         this.listComentario = listComentario;
+        this.context=context;
     }
 
     @NonNull
@@ -31,11 +37,16 @@ public class AdapterDatosComentarios extends RecyclerView.Adapter<AdapterDatosCo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderComentarios viewHolderComentarios, int i) {
-        viewHolderComentarios.nickname.setText("nickname");
-       viewHolderComentarios.fecha_comentario.setText("fecha");
-        viewHolderComentarios.comentario.setText("Comentario");
-        viewHolderComentarios.url_perfil_photo.setImageResource(R.drawable.googleg_disabled_color_18);
+        viewHolderComentarios.nickname.setText(listComentario.get(i).getNickname());
+       viewHolderComentarios.fecha_comentario.setText(listComentario.get(i).getFecha_registro());
+        viewHolderComentarios.comentario.setText(listComentario.get(i).getComentario());
+//        viewHolderComentarios.url_perfil_photo.setImageResource(R.drawable.googleg_disabled_color_18);
 
+        Glide.with(context)
+                .load(listComentario.get(i).getUrl_perfil())
+                .fitCenter()
+                .into(viewHolderComentarios.url_perfil_photo);//.centerCrop()
+        Log.d("_________________","url imagen ____________"+listComentario.get(i).getUrl_perfil());
     }
 
     @Override
